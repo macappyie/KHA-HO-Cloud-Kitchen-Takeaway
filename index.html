@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KHA-HO Restaurant Menu</title>
+    <title>KHA-HO Cloud Kitchen - Order Delicious Home-Style Food Online</title>
+    <meta name="description" content="Order authentic home-style Indian food from KHA-HO Cloud Kitchen. Fresh, delicious meals delivered via Zomato & Swiggy.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;600;800&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
@@ -23,17 +24,20 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Cormorant Garamond', serif;
             background: linear-gradient(135deg, #FFF8E7 0%, #F5E6D3 100%);
             color: var(--deep-brown);
             min-height: 100vh;
-            padding: 2rem 1rem;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Decorative background elements */
+        /* Decorative background */
         body::before {
             content: '';
             position: fixed;
@@ -65,16 +69,48 @@
             50% { transform: translate(-20px, 20px) rotate(5deg); }
         }
 
+        /* Special Offer Banner */
+        .offer-banner {
+            background: linear-gradient(135deg, var(--terracotta), #E58575);
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 100;
+            animation: slideDown 0.5s ease-out;
+            box-shadow: 0 2px 10px rgba(212, 117, 108, 0.3);
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .offer-banner span {
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Main Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 2rem 1rem;
             position: relative;
             z-index: 1;
         }
 
+        /* Header */
         .menu-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
             animation: fadeInDown 1s ease-out;
         }
 
@@ -110,6 +146,85 @@
             text-transform: uppercase;
         }
 
+        /* Order Buttons */
+        .order-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .order-btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cormorant Garamond', serif;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .order-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn-zomato {
+            background: linear-gradient(135deg, #E23744, #C91829);
+            color: white;
+        }
+
+        .btn-swiggy {
+            background: linear-gradient(135deg, #FC8019, #E67100);
+            color: white;
+        }
+
+        .btn-call {
+            background: linear-gradient(135deg, var(--sage), #7A8D6E);
+            color: white;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid var(--gold);
+            border-radius: 50px;
+            background: white;
+            font-family: 'Cormorant Garamond', serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--terracotta);
+            box-shadow: 0 0 20px rgba(212, 117, 108, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+            color: var(--gold);
+        }
+
+        /* Menu Grid */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -125,16 +240,20 @@
             box-shadow: 0 10px 40px rgba(44, 24, 16, 0.08);
             border: 1px solid rgba(212, 165, 116, 0.2);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: fadeInUp 0.8s ease-out backwards;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .menu-section.animate-in {
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
         .menu-section:nth-child(1) { animation-delay: 0.1s; }
         .menu-section:nth-child(2) { animation-delay: 0.2s; }
         .menu-section:nth-child(3) { animation-delay: 0.3s; }
         .menu-section:nth-child(4) { animation-delay: 0.4s; }
-        .menu-section:nth-child(5) { animation-delay: 0.5s; }
 
         .menu-section::before {
             content: '';
@@ -169,7 +288,6 @@
 
         .section-icon {
             font-size: 2rem;
-            filter: grayscale(0.2);
         }
 
         .section-title {
@@ -210,12 +328,30 @@
             padding-left: 8px;
         }
 
+        .menu-item.popular {
+            background: linear-gradient(90deg, rgba(212, 117, 108, 0.05), transparent);
+            border-radius: 8px;
+            padding: 0.8rem;
+        }
+
         .item-name {
             font-size: 1.15rem;
             color: var(--charcoal);
             font-weight: 400;
             flex: 1;
             position: relative;
+        }
+
+        .popular-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--terracotta), #E58575);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+            font-weight: 600;
+            vertical-align: middle;
         }
 
         .item-dots {
@@ -233,11 +369,195 @@
             white-space: nowrap;
         }
 
-        .seafood-section {
-            grid-column: 1 / -1;
-            background: linear-gradient(135deg, rgba(139, 158, 125, 0.15) 0%, rgba(212, 165, 116, 0.1) 100%);
+        /* Gallery Section */
+        .gallery-section {
+            margin: 4rem 0;
+            text-align: center;
         }
 
+        .section-heading {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--deep-brown);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--gold), var(--sage));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            margin: 4rem 0;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stars {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: var(--terracotta);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--terracotta);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--deep-brown);
+            color: var(--cream);
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--cream);
+            text-decoration: none;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--terracotta);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--terracotta);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background: var(--gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 248, 231, 0.2);
+            font-size: 1rem;
+        }
+
+        .fssai-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--deep-brown);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Animations */
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -260,37 +580,10 @@
             }
         }
 
-        /* Decorative corner elements */
-        .corner-decoration {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            opacity: 0.15;
-        }
-
-        .corner-decoration.top-left {
-            top: -10px;
-            left: -10px;
-            border-top: 3px solid var(--gold);
-            border-left: 3px solid var(--gold);
-            border-radius: 20px 0 0 0;
-        }
-
-        .corner-decoration.bottom-right {
-            bottom: -10px;
-            right: -10px;
-            border-bottom: 3px solid var(--terracotta);
-            border-right: 3px solid var(--terracotta);
-            border-radius: 0 0 20px 0;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
             .menu-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .seafood-section {
-                grid-column: 1;
             }
 
             .restaurant-name {
@@ -302,40 +595,70 @@
                 letter-spacing: 0.2em;
             }
 
-            .menu-section {
-                padding: 2rem 1.5rem;
+            .order-buttons {
+                flex-direction: column;
+                padding: 0 1rem;
             }
-        }
 
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem;
-            color: var(--charcoal);
-            font-size: 0.95rem;
-            letter-spacing: 0.1em;
-            opacity: 0.7;
+            .order-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Special Offer Banner -->
+    <div class="offer-banner">
+        🎉 <span>Special Offer: Get 10% OFF on orders above ₹500!</span> 🎉
+    </div>
+
     <div class="container">
+        <!-- Header -->
         <header class="menu-header">
             <h1 class="restaurant-name">KHA-HO</h1>
             <p class="subtitle">Cloud Kitchen & Takeaway</p>
+            
+            <!-- Order Buttons -->
+            <div class="order-buttons">
+                <a href="#" class="order-btn btn-zomato">
+                    🍽️ Order on Zomato
+                </a>
+                <a href="#" class="order-btn btn-swiggy">
+                    🛵 Order on Swiggy
+                </a>
+                <a href="tel:9326237560" class="order-btn btn-call">
+                    📞 Call to Order
+                </a>
+            </div>
         </header>
 
-        <div class="menu-grid">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" class="search-box" id="searchInput" placeholder="Search for your favorite dish...">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <!-- Menu Grid -->
+        <div class="menu-grid" id="menuGrid">
             <!-- Snacks Section -->
             <section class="menu-section">
-                <div class="corner-decoration top-left"></div>
                 <div class="section-header">
                     <span class="section-icon">🥪</span>
                     <h2 class="section-title">Snacks</h2>
                 </div>
                 <div class="menu-items">
-                    <div class="menu-item">
-                        <span class="item-name">Veg Sandwich</span>
+                    <div class="menu-item popular">
+                        <span class="item-name">Veg Sandwich<span class="popular-badge">⭐ Popular</span></span>
                         <span class="item-dots"></span>
                         <span class="item-price">₹70</span>
                     </div>
@@ -349,8 +672,8 @@
                         <span class="item-dots"></span>
                         <span class="item-price">₹100</span>
                     </div>
-                    <div class="menu-item">
-                        <span class="item-name">Tari Poha</span>
+                    <div class="menu-item popular">
+                        <span class="item-name">Tari Poha<span class="popular-badge">⭐ Popular</span></span>
                         <span class="item-dots"></span>
                         <span class="item-price">₹80</span>
                     </div>
@@ -370,19 +693,17 @@
                         <span class="item-price">₹80</span>
                     </div>
                 </div>
-                <div class="corner-decoration bottom-right"></div>
             </section>
 
             <!-- Non-Veg Main Course -->
             <section class="menu-section">
-                <div class="corner-decoration top-left"></div>
                 <div class="section-header">
                     <span class="section-icon">🍗</span>
                     <h2 class="section-title">Non-Veg Main</h2>
                 </div>
                 <div class="menu-items">
-                    <div class="menu-item">
-                        <span class="item-name">Mutton Suka</span>
+                    <div class="menu-item popular">
+                        <span class="item-name">Mutton Suka<span class="popular-badge">⭐ Popular</span></span>
                         <span class="item-dots"></span>
                         <span class="item-price">₹300</span>
                     </div>
@@ -391,8 +712,8 @@
                         <span class="item-dots"></span>
                         <span class="item-price">₹300</span>
                     </div>
-                    <div class="menu-item">
-                        <span class="item-name">Chicken Suka</span>
+                    <div class="menu-item popular">
+                        <span class="item-name">Chicken Suka<span class="popular-badge">⭐ Popular</span></span>
                         <span class="item-dots"></span>
                         <span class="item-price">₹200</span>
                     </div>
@@ -421,20 +742,23 @@
                         <span class="item-dots"></span>
                         <span class="item-price">₹250</span>
                     </div>
+                    <div class="menu-item">
+                        <span class="item-name">Egg Bhurji Chapati</span>
+                        <span class="item-dots"></span>
+                        <span class="item-price">₹170</span>
+                    </div>
                 </div>
-                <div class="corner-decoration bottom-right"></div>
             </section>
 
             <!-- Veg Main Course -->
             <section class="menu-section">
-                <div class="corner-decoration top-left"></div>
                 <div class="section-header">
                     <span class="section-icon">🥦</span>
                     <h2 class="section-title">Veg Main</h2>
                 </div>
                 <div class="menu-items">
-                    <div class="menu-item">
-                        <span class="item-name">Masala Rice & Kadhi</span>
+                    <div class="menu-item popular">
+                        <span class="item-name">Masala Rice & Kadhi<span class="popular-badge">⭐ Popular</span></span>
                         <span class="item-dots"></span>
                         <span class="item-price">₹170</span>
                     </div>
@@ -463,8 +787,8 @@
                         <span class="item-dots"></span>
                         <span class="item-price">₹150</span>
                     </div>
-                    <div class="menu-item">
-                        <span class="item-name">Dal Tadka</span>
+                    <div class="menu-item popular">
+                        <span class="item-name">Dal Tadka<span class="popular-badge">⭐ Popular</span></span>
                         <span class="item-dots"></span>
                         <span class="item-price">₹150</span>
                     </div>
@@ -478,8 +802,8 @@
                         <span class="item-dots"></span>
                         <span class="item-price">₹170</span>
                     </div>
-                    <div class="menu-item">
-                        <span class="item-name">Palak Paneer</span>
+                    <div class="menu-item popular">
+                        <span class="item-name">Palak Paneer<span class="popular-badge">⭐ Popular</span></span>
                         <span class="item-dots"></span>
                         <span class="item-price">₹180</span>
                     </div>
@@ -503,18 +827,11 @@
                         <span class="item-dots"></span>
                         <span class="item-price">₹170</span>
                     </div>
-                    <div class="menu-item">
-                        <span class="item-name">Egg Bhurji Chapati</span>
-                        <span class="item-dots"></span>
-                        <span class="item-price">₹170</span>
-                    </div>
                 </div>
-                <div class="corner-decoration bottom-right"></div>
             </section>
 
-            <!-- Seafood Section -->
-            <section class="menu-section seafood-section">
-                <div class="corner-decoration top-left"></div>
+            <!-- Sea Foods -->
+            <section class="menu-section">
                 <div class="section-header">
                     <span class="section-icon">🦐</span>
                     <h2 class="section-title">Sea Foods</h2>
@@ -530,8 +847,8 @@
                         <span class="item-dots"></span>
                         <span class="item-price">₹200</span>
                     </div>
-                    <div class="menu-item">
-                        <span class="item-name">Prawns Tawa Fry</span>
+                    <div class="menu-item popular">
+                        <span class="item-name">Prawns Tawa Fry<span class="popular-badge">⭐ Popular</span></span>
                         <span class="item-dots"></span>
                         <span class="item-price">₹250</span>
                     </div>
@@ -546,14 +863,163 @@
                         <span class="item-price">₹300</span>
                     </div>
                 </div>
-                <div class="corner-decoration bottom-right"></div>
             </section>
         </div>
 
-        <footer>
-            <p>Thank you for your order • KHA-HO Cloud Kitchen</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem;">FSSAI Reg. No: 21526024000039</p>
-        </footer>
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <h2 class="section-heading">Our Delicious Offerings</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">🍛</div>
+                <div class="gallery-item">🍗</div>
+                <div class="gallery-item">🥘</div>
+                <div class="gallery-item">🍲</div>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section class="reviews-section">
+            <h2 class="section-heading" style="text-align: center;">What Our Customers Say</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Amazing home-style food! The Mutton Suka tastes just like my mom's cooking. Highly recommended!"</p>
+                    <p class="reviewer-name">— Rahul M.</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Fresh ingredients and authentic taste. The Palak Paneer is to die for. Will order again!"</p>
+                    <p class="reviewer-name">— Sneha K.</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Best cloud kitchen in the area! Quick delivery and delicious food every single time."</p>
+                    <p class="reviewer-name">— Amit P.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <h2 class="section-heading">Get In Touch</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">👤</span>
+                    <span>Priya Patil</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span>Ghotcamp Koyane</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <a href="tel:9326237560" style="color: var(--deep-brown); text-decoration: none;">9326237560</a>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>KHA-HO</h3>
+                <p>Authentic home-style Indian cuisine delivered fresh to your doorstep. Made with love and the finest ingredients.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="#menu">Menu</a></p>
+                <p><a href="#about">About Us</a></p>
+                <p><a href="tel:9326237560">Contact</a></p>
+                <p><a href="#order">Order Now</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Delivery Hours</h3>
+                <p>Monday - Sunday</p>
+                <p>11:00 AM - 10:00 PM</p>
+                <p><br>Accepting orders on:</p>
+                <p>Zomato & Swiggy</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-icon">📘</a>
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">🐦</a>
+                    <a href="tel:9326237560" class="social-icon">📞</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 KHA-HO Cloud Kitchen. All rights reserved.</p>
+            <div class="fssai-badge">FSSAI Reg. No: 21526024000039</div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.menu-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            menuItems.forEach(item => {
+                const itemName = item.querySelector('.item-name').textContent.toLowerCase();
+                const menuSection = item.closest('.menu-section');
+                
+                if (itemName.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                    menuSection.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Hide sections with no visible items
+            document.querySelectorAll('.menu-section').forEach(section => {
+                const visibleItems = Array.from(section.querySelectorAll('.menu-item')).filter(
+                    item => item.style.display !== 'none'
+                );
+                if (visibleItems.length === 0) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
